@@ -7,14 +7,15 @@ int main() {
     setlocale(LC_ALL, "pt_BR.UTF-8");
     srand(time(NULL));
 
-    int opcao, numeroAleatorio, tentativas;
+    int numeroAleatorio, tentativas;
     char l1, l2, l3, l4, l5, l6;
     char oc1, oc2, oc3, oc4, oc5, oc6;
-    char letra;
+    char opcao;
     bool ganhou, acertou;
 
     do {
         system("cls");
+        // Angelo: Reset de jogo
         ganhou = false;
         acertou = false;
         numeroAleatorio = rand()%10 + 1;
@@ -35,7 +36,7 @@ int main() {
 
         switch (opcao) {
             // Angelo: Logica do jogo
-            case 1: {
+            case '1': {
                 // Angelo: Seleciona aleatoriamente a palavra do secreta
                 switch (numeroAleatorio) {
                     case 1: 
@@ -110,15 +111,15 @@ int main() {
                     cout << "Numero de tentativas: " << tentativas << endl;
                     cout << "Palavra: " << oc1 << oc2 << oc3 << oc4 << oc5 << oc6 << endl;
                     cout << "Digite uma letra: ";
-                    cin >> letra;
+                    cin >> opcao;
                     
                     // Angelo: Bloco que mostra a letra quando ela é acertada, e muda o acerto pra true
-                    if (letra == l1) {oc1 = l1; acertou = true;}
-                    if (letra == l2) {oc2 = l2; acertou = true;}
-                    if (letra == l3) {oc3 = l3; acertou = true;}
-                    if (letra == l4) {oc4 = l4; acertou = true;}
-                    if (letra == l5) {oc5 = l5; acertou = true;}
-                    if (letra == l6) {oc6 = l6; acertou = true;}
+                    if (opcao == l1) {oc1 = l1; acertou = true;}
+                    if (opcao == l2) {oc2 = l2; acertou = true;}
+                    if (opcao == l3) {oc3 = l3; acertou = true;}
+                    if (opcao == l4) {oc4 = l4; acertou = true;}
+                    if (opcao == l5) {oc5 = l5; acertou = true;}
+                    if (opcao == l6) {oc6 = l6; acertou = true;}
 
                     // Angelo: Verifica se ganhou
                     if (oc1 == l1 && oc2 == l2 && oc3 == l3 && oc4 == l4 && oc5 == l5 && oc6 == l6) {ganhou = true;}
@@ -127,11 +128,28 @@ int main() {
                     if (acertou == false) {
                         tentativas--;
                     }
+
+                    // Bruno: Mensagem de vitória para saber se realmente ganhou
+                    if (ganhou == true) {
+                        system("cls");
+                        cout << "-------------------------------\n";
+                        cout << "|    Parabens! Voce ganhou!   |\n";
+                        cout << "-------------------------------\n";
+                        system("pause");
+                    }
+
+                    // Bruno: Mensagem de derrota para saber se realmente perdeu
+                    if (tentativas == 0) {
+                        system("cls");
+                        cout << "-------------------------------\n";
+                        cout << "|    Que pena, voce perdeu!   |\n";
+                        cout << "-------------------------------\n";
+                        system("pause");
+                    }
                 }
-                
             }
             break;
-            case 2: {
+            case '2': {
                 system("cls");
                 cout << "------------------------------\n";
                 cout << "|            SOBRE           |\n";
@@ -157,15 +175,17 @@ int main() {
                 break;
             }
             default:
+                if (opcao == 3) {
+                    system("cls");
+                    cout<<"Saindo do jogo!\n";
+                    system("pause");    
+                    break;
+                }
                 cout << "Opcao invalida!\n";
                 system("pause");
-                break;
+            break;
         }
     } while (opcao != 3);
-    
-    system("cls");
-    cout<<"Saindo do jogo!\n";
-    system("pause");
 
     return 0;
 }
